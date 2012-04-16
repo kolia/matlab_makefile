@@ -1,27 +1,46 @@
-Kolia's MATLAB TASK MANAGER
+kolia's matlab_makefile
 ---------------------------
 
 A tool for specifying calculations that depend on other calculations that
 depend on other calculations...
 
 matlab_makefile works around a  TARGET  file and the notion of CONTEXT.  
-- The `targets.m` TARGET file specifies which targets depend on which,
+
+- The `targets.m` file specifies which targets depend on which,
 what functions should be called to build each target, whether the
 built target should be saved to disk, and in which folder they
 should be saved. Results that are to be saved on disk are not
 recalculated if the corresponding file can be found.
 
-- The CONTEXT is a structure which contains contextual information:
-which data set is being used, with which parameters, etc. The
-`context` serves as a means to generate filenames for saved
-calculations, in folders reflecting the context of each calculation.
+- The `context` is a structure which contains contextual information:
+which data set is being used, with which parameters, etc.
+`context` also serves to generate filenames for
+saved calculations, in folders reflecting the context of each
+calculation.
 
 See `examples/targets.m` for an example of a TARGET file. Note that
 the TARGETS file MUST be called `targets.m`
 
+Informally, the grammar for a target is:
+
+     <target> = [':' <target>]                      Example: :target1
+
+     <target> = { @make_function (list of <target>s) }
+
+     <target> = a matlab expression that doesn't match the above 2 rules
+
+- `:target1` stands for 'the result of calculating target1'
+      
+- `{ @make_function (list of <target>s) }` stands for the result of
+   calling `make_function` with the results from evaluating the list of
+   targets as arguments.
+ 
+- Any matlab expression which is not of these two forms stands for
+      itself.
 
 
-The TARGET file should contain:
+target.m should contain
+-----------------------
 
 - `SAVE_HERE.ROOT_DIRECTORY`: root directory where results are saved (string)
 
@@ -51,22 +70,6 @@ The TARGET file should contain:
           the result target1 is the result of matlab expression exp1. The
           result is not saved to disk, but it is saved in memory inside
           context.STORE
-
-      Informally, the grammar for a target is:
-
-           <target> = [':' <target>]                      Example: :target1
-
-           <target> = { @make_function (list of <target>s) }
-
-           <target> = a matlab expression that doesn't match the above 2 rules
-
-
-      - `:target1` stands for 'the result of calculating target1'
-      - `{ @make_function (list of <target>s) }` stands for the result of
-      calling `make_function` with the results from evaluating the list of
-      targets as arguments.
-      - Any matlab expression which is not of these two forms stands for
-      itself.
 
 
 
