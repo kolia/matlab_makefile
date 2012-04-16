@@ -52,11 +52,12 @@ The TARGET file should contain:
           context.STORE
       The grammar for a target is:
 
-      > `<target> = [':' <target>]`                         Example: `:target1`
+         > `<target> = [':' <target>]`                         Example: `:target1`
 
-      > `<target> = { @make_function (list of <target>s) }`
+         > `<target> = { @make_function (list of <target>s) }`
 
-      > `<target> = a matlab expression that doesn't match the above 2 rules`
+         > `<target> = a matlab expression that doesn't match the above 2 rules`
+
 
       - `:target1` stands for 'the result of calculating target1'
       - `{ @make_function (list of <target>s) }` stands for the result of
