@@ -50,13 +50,14 @@ The TARGET file should contain:
           the result target1 is the result of matlab expression exp1. The
           result is not saved to disk, but it is saved in memory inside
           context.STORE
+
       The grammar for a target is:
 
-         > `<target> = [':' <target>]`                         Example: `:target1`
+           + `<target> = [':' <target>]`                      Example: `:target1`
 
-         > `<target> = { @make_function (list of <target>s) }`
+           + `<target> = { @make_function (list of <target>s) }`
 
-         > `<target> = a matlab expression that doesn't match the above 2 rules`
+           + `<target> = a matlab expression that doesn't match the above 2 rules`
 
 
       - `:target1` stands for 'the result of calculating target1'
