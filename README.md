@@ -40,12 +40,11 @@ Informally, the grammar for a target is:
 usage
 -----
 
-write a `targets.m`; see next section and `example/targets.m`
+write a `targets.m` file.  see next section and `example/targets.m`
 
 `context = initialize_context() ;`
 
-use good ol matlab to add whatever contextual information you like as
-additional fields in `context`
+add whatever contextual information you like as additional fields in `context`
 
 `[result,context] = make_target('my_targets_*', context) ;` will build all targets in `targets.m` that match the pattern `'my_targets_*'`, using context `context`.
 
