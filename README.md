@@ -6,19 +6,18 @@ depend on other calculations...
 
 matlab_makefile works around a  TARGET  file and the notion of CONTEXT.  
 
-- The `targets.m` file specifies which targets depend on which,
-what functions should be called to build each target, whether the
-built target should be saved to disk, and in which folder they
-should be saved. Results that are to be saved on disk are not
-recalculated it can be loaded from disk.
+- The `targets.m` file specifies which targets depend on which, what
+functions should be called to build each target, whether the built
+target should be saved to disk, and in which folder they should be
+saved. Results are not recalculated if they can be loaded from disk.
 
 - The `context` is a structure which contains contextual information:
 which data set is being used, with which parameters, etc.  `context`
 also serves to save results with file and folder names reflecting the 
 context of each calculation.
 
-See `examples/targets.m` for an example of a TARGET file. Note that
-the TARGETS file MUST be called `targets.m`
+See `examples/targets.m` for an example of a target file. Note that
+the target file MUST be called `targets.m`
 
 Informally, the grammar for a target is:
 
