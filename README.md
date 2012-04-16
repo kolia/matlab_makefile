@@ -40,13 +40,16 @@ Informally, the grammar for a target is:
 usage
 -----
 
-write a `targets.m` file.  see next section and `example/targets.m`
+1. write a `targets.m` file.  see next section and `example/targets.m`
 
-`context = initialize_context() ;`
+2. `context = initialize_context() ;`
 
-add whatever contextual information you like as additional fields in `context`
+3. add whatever contextual information you like as additional fields in `context`
 
-`[result,context] = make_target('my_targets_*', context) ;` will build all targets in `targets.m` that match the pattern `'my_targets_*'`, using context `context`.
+4. `[result,context] = make_target('my_targets_*', context) ;`
+
+this will build all targets in `targets.m` that match pattern
+`'my_targets_*'`, using the additional info in `context`
 
 
 target.m should contain
