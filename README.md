@@ -4,17 +4,18 @@ kolia's matlab_makefile
 A tool for specifying calculations that depend on other calculations that
 depend on other calculations...
 
-matlab_makefile works around a  TARGET  file and the notion of CONTEXT.  
+matlab_makefile uses a `target.m` file and a `context` matlab structure.
 
 - The `targets.m` file specifies which targets depend on which, what
 functions should be called to build each target, whether the built
-target should be saved to disk, and in which folder they should be
-saved. Results are not recalculated if they can be loaded from disk.
+target should be saved to disk, and how to calculate the paths where
+results should be saved. Targets are not rebuilt if they can be loaded
+from disk.
 
-- The `context` is a structure which contains contextual information:
-which data set is being used, with which parameters, etc.  `context`
-also serves to save results with file and folder names reflecting the 
-context of each calculation.
+- `context` is a matlab structure which contains contextual
+information: which data set is being used, with which parameters, etc.
+Information in `context` is also used to calculate file and folder names
+where results will be stored.
 
 See `examples/targets.m` for an example of a target file. Note that
 the target file MUST be called `targets.m`
@@ -35,6 +36,18 @@ Informally, the grammar for a target is:
  
 - Any matlab expression which is not of these two forms stands for
       itself.
+
+usage
+-----
+
+write a `targets.m`; see next section and `example/targets.m`
+
+`context = initialize_context() ;`
+
+use good ol matlab to add whatever contextual information you like as
+additional fields in `context`
+
+`[result,context] = make_target('my_targets_*', context) ;` will build all targets in `targets.m` that match the pattern `'my_targets_*'`, using context `context`.
 
 
 target.m should contain
