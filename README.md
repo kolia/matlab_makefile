@@ -81,15 +81,15 @@ WHAT IT DOES
 
 - `t.target1 = :some_other_target`
 
-    `some_other_target` is first sought as `context.some_other_target`. 
-    If `some_other_target` it is not a field of `context`, then
+    `some_other_target` is first sought as `context.some_other_target.` 
+    If `some_other_target` it is not a field of `context`
     it is sought as `context.STORE.some_other_target`, where previous builds
     have been stored. If it is not found there and `t.target1` has field
-    `.SAVE`, it is sought on disk, with filename `target1.mat` in
-    the folder calculated using `SAVE_HERE.ROOT_DIRECTORY` and
-    `SAVE_HERE.USING_FOLDERS`. If `target1.mat` was not found at that
+    `.SAVE` it is sought on disk with filename `target1.mat` in
+    the folder calculated using `context` with `SAVE_HERE.ROOT_DIRECTORY` and
+    `SAVE_HERE.USING_FOLDERS.` If `target1.mat` was not found at that
     location, then `some_other_target` is calculated using the rule
-    `t.some_other_target`.
+    `t.some_other_target.`
 
 - `t.target1 = { @make_function (list of <target>s) }`
 
