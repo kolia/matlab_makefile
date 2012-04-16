@@ -77,6 +77,7 @@ WHAT IT DOES
   take two froms:
 
 - `t.target1 = :some_other_target`
+
   `some_other_target` is first sought as `context.some_other_target`. 
   If `some_other_target` it is not a field of `context`, then
   it is sought as `context.STORE.some_other_target`, where previous builds
@@ -88,6 +89,7 @@ WHAT IT DOES
   `t.some_other_target`.
 
 - `t.target1 = { @make_function (list of <target>s) }`
+
   each target in the list of arguments is retrieved from `context`,
   `context.STORE`, from disk, or rebuilt (as above), and then
   `make_function` is called with these as arguments.
