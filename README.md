@@ -4,18 +4,17 @@ Kolia's MATLAB TASK MANAGER
 A tool for specifying calculations that depend on other calculations that
 depend on other calculations...
 
-The system works around a  TARGET  file and the notion of CONTEXT.  
+matlab_makefile works around a  TARGET  file and the notion of CONTEXT.  
 - The `targets.m` TARGET file specifies which targets depend on which,
 what functions should be called to build each target, whether the
-built target should be saved to hard disk, and in which folder they
+built target should be saved to disk, and in which folder they
 should be saved. Results that are to be saved on disk are not
 recalculated if the corresponding file can be found.
 
-- The CONTEXT is a structure which serves to distiguish different
-conditions under which a calculation can be done: for different data
-sets, different parameters, etc. The context also serves as a means to
-generate filenames for saved calculations, in folders reflecting the
-context of each calculation.
+- The CONTEXT is a structure which contains contextual information:
+which data set is being used, with which parameters, etc. The
+`context` serves as a means to generate filenames for saved
+calculations, in folders reflecting the context of each calculation.
 
 See `examples/targets.m` for an example of a TARGET file. Note that
 the TARGETS file MUST be called `targets.m`
@@ -49,13 +48,13 @@ The TARGET file should contain:
           of calculating `target4`.
       - `t.target1 = matlab expression exp1`
           the result target1 is the result of matlab expression exp1. The
-          resut is not saved to disk, but it is saved in memory inside
+          result is not saved to disk, but it is saved in memory inside
           context.STORE
       The grammar for a target is:
 
-      `<target> = [':' <target>]`                         Example: `:target1`
-      `<target> = { @make_function (list of <target>s) }`
-      `<target> = a matlab expression that doesn't match the above 2 rules`
+      - `<target> = [':' <target>]`                         Example: `:target1`
+      - `<target> = { @make_function (list of <target>s) }`
+      - `<target> = a matlab expression that doesn't match the above 2 rules`
 
       - `:target1` stands for 'the result of calculating target1'
       - `{ @make_function (list of <target>s) }` stands for the result of
