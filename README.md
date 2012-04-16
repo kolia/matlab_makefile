@@ -43,10 +43,10 @@ The TARGET file should contain:
 - `t` :  a structure containing all targets. Examples:
       - `t.target0.SAVE = { @make_target0 ':target2' 10 ':target4' } ;`
           Here, `target0` will be saved to disk because it has the field 
-		  `.SAVE`. It will be calculated by
-          invoking the function `make_target0` with 3 arguments: the
-          result of calculating `target2`, the number 10, and the result
-          of calculating `target4`.
+		  `.SAVE`. It will be built by
+          calling the function `make_target0` with 3 arguments: the
+          result of building `target2`, the number 10, and the result
+          of building `target4`.
       - `t.target1 = matlab expression exp1`
           the result target1 is the result of matlab expression exp1. The
           result is not saved to disk, but it is saved in memory inside
@@ -64,7 +64,7 @@ The TARGET file should contain:
       - `:target1` stands for 'the result of calculating target1'
       - `{ @make_function (list of <target>s) }` stands for the result of
       calling `make_function` with the results from evaluating the list of
-      <target>s as arguments.
+      targets as arguments.
       - Any matlab expression which is not of these two forms stands for
       itself.
 
@@ -75,18 +75,18 @@ WHAT IT DOES
 
   Evaluating `:target1` starts with the definition `t.target1`
 
-- If `t.target1` is of the form  `:some_other_target`, then
-  `some_other_target` is first sought as a field of the structure `context`. 
-  If `some_other_target` it is not a field in `context`, then
-  it is sought as a field in `context.STORE`, where previous calculations
+- If `t.target1 = :some_other_target`, then
+  `some_other_target` is first sought as `context.some_other_target`. 
+  If `some_other_target` it is not a field of `context`, then
+  it is sought as `context.STORE.some_other_target`, where previous builds
   have been stored. If it is not found there and `t.target1` has field
-  'SAVE', it is sought in the file system, with filename `target1.mat` in
+  'SAVE', it is sought on disk, with filename `target1.mat` in
   the folder calculated using `SAVE_HERE.ROOT_DIRECTORY` and
   `SAVE_HERE.USING_FOLDERS`. If `target1.mat` was not found at that
   location, then `some_other_target` is calculated using the rule
   `t.some_other_target`.
 
-- If `t.target1` is of the form `{ @make_function (list of <target>s) }`,
+- If `t.target1 = { @make_function (list of <target>s) }`,
   then each target in the list of arguments is retrieved from `context`,
-  `context.STORE`, from a saved file, or rebuilt, and then the function
+  `context.STORE`, from disk, or rebuilt (as above), and then
   `make_function` is called with those arguments.
